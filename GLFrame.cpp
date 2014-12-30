@@ -59,6 +59,14 @@ void GLFrame::setupGlut(int argc, char **argv)
     glutCreateWindow("OpenGL Main Window");
     glutDisplayFunc(staticDisplay);
     glutKeyboardFunc(staticKeyFun);
+#ifdef WIN32
+	GLenum err = glewInit();
+
+	if(err != GLEW_OK)
+	{
+		printf("GLEW Error: %s\n", glewGetErrorString(err));
+	}
+#endif
 }
 
 void GLFrame::run()
@@ -74,7 +82,7 @@ char *GLFrame::textFileRead(const char *fileName)
     
     if (fileName != NULL) {
         fp = fopen(fileName, "r");
-        if (fp != nullptr) {
+        if (fp != NULL) {
             fseek(fp, 0, SEEK_END);
             count = ftell(fp);
             rewind(fp);
@@ -93,7 +101,7 @@ GLint GLFrame::createShader(GLenum shaderType, const GLchar *shaderSourceStr)
 {
     int shader = glCreateShader(shaderType);
     int statusMark;
-    glShaderSource(shader, 1, &shaderSourceStr, nullptr);
+    glShaderSource(shader, 1, &shaderSourceStr, NULL);
     glCompileShader(shader);
     glGetShaderiv(shader, GL_COMPILE_STATUS, &statusMark);
     if (!statusMark) {
@@ -125,7 +133,7 @@ GLint GLFrame::createShaderFromFile(const char *fileName)
     for (i++; i < length; i++) {
         buf[start++] = fileName[i];
     }
-    buf[i] = '\0';
+    buf[start] = '\0';
     GLenum shaderType;
     if (strcmp(buf, "vert") == 0) {
         shaderType = GL_VERTEX_SHADER;
@@ -136,6 +144,11 @@ GLint GLFrame::createShaderFromFile(const char *fileName)
     }
     
     char *shaderSourceStr = textFileRead(fileName);
+	if (shaderSourceStr == NULL)
+	{
+		printf("Didn't find the text file %s\n", fileName);
+		return 0;
+	}
     int shader;
     shader = createShader(shaderType, shaderSourceStr);
     delete[] shaderSourceStr;

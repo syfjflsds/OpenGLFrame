@@ -24,7 +24,7 @@ bool MyGLApp::setup(int argc, char **argv)
     glUseProgram(program);
     
     int location = glGetUniformLocation(program, "colorBase");
-    glUniform1f(location, 0.3);
+    glUniform1f(location, 0.8);
     
     return true;
 }

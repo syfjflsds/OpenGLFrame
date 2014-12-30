@@ -10,8 +10,14 @@
 #define __HelloOpenGL__GLFrame__
 
 #include <stdio.h>
+#ifdef WIN32
+#include "GL/glew.h"
+#include "GL/freeglut.h"
+#pragma comment(lib, "glew32.lib")
+#else
 #include <OpenGL/OpenGL.h>
 #include <GLUT/GLUT.h>
+#endif
 #include <string.h>
 #include <vector>
 #include "GLCamera.h"

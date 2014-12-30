@@ -7,7 +7,11 @@
 //
 
 #include "GLCamera.h"
+#ifdef WIN32
+#include "gl/freeglut.h"
+#else
 #include <GLUT/GLUT.h>
+#endif
 
 GLCamera::GLCamera(GLVector up, GLVector look, GLVector right, GLVector pos) : speed(1)
 {

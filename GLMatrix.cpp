@@ -29,6 +29,7 @@ GLMatrix::GLMatrix(const GLMatrix &copyMatrix)
             matrix[i][j] = copyMatrix.matrix[i][j];
         }
     }
+	m_toOneDemensionalArray = NULL;
 }
 
 float * & GLMatrix::operator[](int row)
