@@ -15,6 +15,11 @@ class MyGLApp : public GLFrame
 public:
     bool setup(int argc, char **argv);
     void render(int delayPerFrame);
+private:
+	GLuint positionBufferObject;
+	GLint program;
+	GLfloat change;
+	void changeUniformPerFrame();
 };
 
 #endif

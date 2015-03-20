@@ -16,7 +16,7 @@
 class GLCamera
 {
 public:
-    GLCamera(GLVector up = GLVector(0, 1, 0), GLVector look = GLVector(0, 0, -1), GLVector right = GLVector(1, 0, 0), GLVector pos = GLVector(0, 0, 5.0));
+    GLCamera(GLVector up = GLVector(0, 1, 0), GLVector look = GLVector(0, 0, -1), GLVector right = GLVector(1, 0, 0), GLVector pos = GLVector(0, 0, 1.0));
     void resetCamera(); //重置摄像机，即重设ModelViewMatrix
     GLMatrix getViewMatrix(); //获取摄像机的Matrix
     void moveForward(); //向前

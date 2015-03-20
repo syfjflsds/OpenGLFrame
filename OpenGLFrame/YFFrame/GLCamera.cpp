@@ -25,7 +25,7 @@ void GLCamera::resetCamera()
 {
     auto matrix = getViewMatrix();
     auto arr = matrix.getOneDemonsialnalArray();
-    //GLMatrix::printArray(arr);
+    GLMatrix::printArray(arr);
     glLoadMatrixf(arr);
 }
 

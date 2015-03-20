@@ -45,6 +45,7 @@ bool GLFrame::setup(int argc, char **argv)
     //gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0);
     //printMatrix();
     camera.resetCamera();
+	//glViewport(0, 0, 800, 640);
     return true;
 }
 
@@ -110,6 +111,7 @@ GLint GLFrame::createShader(GLenum shaderType, const GLchar *shaderSourceStr)
         
         GLchar *strInfoLog = new GLchar[infoLogLength + 1];
         glGetShaderInfoLog(shader, infoLogLength, NULL, strInfoLog);
+		fprintf(stderr, "Create Shader Failed\n");
         fprintf(stderr, "%s", strInfoLog);
         delete[] strInfoLog;
     }
