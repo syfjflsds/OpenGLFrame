@@ -8,6 +8,7 @@
 
 #include "MyGLApp.h"
 #include "../YFLogger/YFLogger.h"
+#include "../YFMath/YFMath.h"
 
 using namespace YFun;
 
@@ -45,12 +46,10 @@ bool MyGLApp::setup(int argc, char **argv)
 	shaderVector.push_back(fragmentShader);
 	program = createProgram(shaderVector);
 
+	//auto perspectiveProjectionMatrix = YFMath::buildPerspectiveProjectionMatrix(1.0, 800 / 640, 1.0, 1000.0);
+	//perspectiveProjectionMatrix = perspectiveProjectionMatrix * camera.getViewMatrix();
+
 	glClearColor(1.0, 1.0, 1.0, 1.0);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//glColor3f(0.5, 0.5, 0.5);
-	//glUseProgram(program);
-	//int location = glGetUniformLocation(program, "colorBase");
-	//glUniform1f(location, 0.8);
 	return true;
 
 }
@@ -72,20 +71,17 @@ void MyGLApp::render(int delayPerFrame)
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	glUseProgram(program);	
-	//float mat[16];
-	//glGetFloatv(GL_MODELVIEW_MATRIX, mat);
 	auto modelViewProjectionMatrix = camera.getViewMatrix();
 	auto oneDemonsinalMatrixArray = modelViewProjectionMatrix.getOneDemonsialnalArray();
 	GLuint loc = glGetUniformLocation(program, "modelViewProjectionMatrix");
 	glUniformMatrix4fv(loc, 1, GL_FALSE, oneDemonsinalMatrixArray);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//GLMatrix::printArray(mat);
-	//changeUniformPerFrame();
 	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
+	//glEnableVertexAttribArray(1);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void *)48);
+	loc = glGetAttribLocation(program, "color");
+	glEnableVertexAttribArray(loc);
+	glVertexAttribPointer(loc, 4, GL_FLOAT, GL_FALSE, 0, (void *)48);
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDisableVertexAttribArray(0);
